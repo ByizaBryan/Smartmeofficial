@@ -1,0 +1,275 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ settings_obj.company_name|default:'SmartMe Technology Ltd' }} | Electronics Sales & Repairs</title>
+  <meta name="description" content="{{ settings_obj.homepage_description|default:'SmartMe Technology Ltd offers electronics sales, repairs, accessories, and spare parts.' }}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'styles.css' %}">
+  <style>
+    .django-shop-toolbar { display: flex; gap: 12px; flex-wrap: wrap; margin: 18px 0 28px; }
+    .django-filter { padding: 10px 16px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,0.8); cursor: pointer; font-weight: 700; }
+    .django-filter.active { background: linear-gradient(135deg, var(--brand), var(--brand-deep)); color: white; }
+    .shop-page .product-image, .service-card-image { min-height: 240px; overflow: hidden; border-radius: 22px; background: rgba(15, 118, 110, 0.08); }
+    .shop-page .product-image img, .service-card-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .service-card-image { min-height: 180px; margin-bottom: 14px; }
+    .product-card .product-image.photo::after { display: none; }
+    .product-card[hidden], .product-section[hidden] { display: none !important; }
+    .contact-inline { display: grid; gap: 10px; color: var(--muted); }
+    .plain-section { padding-top: 40px; }
+  </style>
+</head>
+<body>
+  <div class="site-shell shop-page">
+    <header class="topbar">
+      <a class="brand" href="#home" aria-label="SmartMe home">
+        <span class="brand-mark">SM</span>
+        <span class="brand-text">
+          <strong>{{ settings_obj.company_name|default:"SmartMe" }}</strong>
+          <span>Technology Ltd</span>
+        </span>
+      </a>
+      <nav class="main-nav" aria-label="Primary navigation">
+        <a href="#home">Home</a>
+        <a href="#services">Services</a>
+        <a href="#shop">Shop</a>
+        <a href="#about">About Us</a>
+        <a href="#contact">Contact</a>
+        <a href="/admin/">Admin</a>
+      </nav>
+      <div class="nav-actions">
+        <a class="button button-primary" href="/admin/">Manage Website</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow">Django Powered SmartMe Website</p>
+          <h1>{{ settings_obj.homepage_headline|default:"Your Trusted Partner for Electronics Sales and Repairs." }}</h1>
+          <p class="hero-text">{{ settings_obj.homepage_description|default:"Manage your devices, accessories, and repair services from one source of truth in Django admin." }}</p>
+          <div class="hero-tags">
+            <span>Admin-managed shop</span>
+            <span>Live service updates</span>
+            <span>Updated pricing</span>
+          </div>
+          <div class="hero-cta">
+            <a class="button button-primary" href="#shop">Browse Products</a>
+            <a class="button button-secondary" href="/admin/website/product/">Add Product</a>
+            <a class="button button-ghost" href="#contact">Contact Us</a>
+          </div>
+          <ul class="hero-contact">
+            <li><strong>Call:</strong> {{ settings_obj.phone }}</li>
+            <li><strong>Email:</strong> {{ settings_obj.email }}</li>
+            <li><strong>Visit:</strong> {{ settings_obj.address }}</li>
+          </ul>
+        </div>
+        <div class="hero-panel">
+          <div class="hero-card highlight-card">
+            <h2>All website content can now flow from admin</h2>
+            <p>Products, services, contact details, reviews, FAQs, and policies update on the public site after you add, edit, or remove them in the dashboard.</p>
+          </div>
+          <div class="hero-grid">
+            <article class="hero-card"><span class="metric">{{ grouped_products|length }}</span><p>active shop categories</p></article>
+            <article class="hero-card"><span class="metric">{{ services|length }}</span><p>managed service entries</p></article>
+            <article class="hero-card"><span class="metric">{{ reviews|length }}</span><p>published reviews</p></article>
+            <article class="hero-card accent"><span class="metric">{{ faqs|length }}</span><p>admin-managed FAQs</p></article>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="services">
+        <div class="section-heading">
+          <p class="eyebrow">Services</p>
+          <h2>{{ settings_obj.services_heading|default:"Professional repair support for everyday devices." }}</h2>
+          <p>{{ settings_obj.services_description|default:"These service entries are loaded directly from the Django admin dashboard." }}</p>
+        </div>
+        <div class="service-grid">
+          {% for service in services %}
+          <article class="service-card">
+            {% if service.image %}
+            <div class="service-card-image"><img src="{{ service.image.url }}" alt="{{ service.name }}"></div>
+            {% endif %}
+            <h3>{{ service.name }}</h3>
+            <p>{{ service.description }}</p>
+            {% if service.starting_price %}<span>Starting from ${{ service.starting_price }}</span>{% endif %}
+          </article>
+          {% empty %}
+          <article class="service-card"><h3>No services yet</h3><p>Add service records in Django admin to display them here.</p></article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="section" id="shop">
+        <div class="section-heading">
+          <p class="eyebrow">Shop</p>
+          <h2>{{ settings_obj.shop_heading|default:"Browse devices, accessories, and genuine spare parts." }}</h2>
+          <p>{{ settings_obj.shop_description|default:"Every item below is loaded from the Django admin, including category, price, uploaded photo, warranty, and specification rows." }}</p>
+        </div>
+        <div class="shop-categories">
+          {% for category in category_items %}
+          <article class="category-tile">
+            <span class="category-label">{{ category.title }}</span>
+            <p>{{ category.description }}</p>
+          </article>
+          {% endfor %}
+        </div>
+        <div class="django-shop-toolbar" aria-label="Shop filters">
+          <button class="django-filter active" type="button" data-filter="all">All</button>
+          {% for category in category_items %}
+          <button class="django-filter" type="button" data-filter="{{ category.key }}">{{ category.title }}</button>
+          {% endfor %}
+        </div>
+        <div class="shop-groups" id="shop-groups">
+          {% for group in grouped_products %}
+          <section class="product-section" data-section-category="{{ group.key }}">
+            <div class="product-section-heading">
+              <h3>{{ group.title }}</h3>
+              <p>{{ group.description }}</p>
+            </div>
+            <div class="product-grid">
+              {% for product in group.products %}
+              <article class="product-card" data-category="{{ product.category }}" data-name="{{ product.name }}" data-price="{{ product.price }}">
+                <div class="product-image photo">
+                  {% if product.image %}
+                  <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                  {% elif product.image_url %}
+                  <img src="{{ product.image_url }}" alt="{{ product.name }}">
+                  {% endif %}
+                </div>
+                {% if product.badge %}<span class="product-badge">{{ product.badge }}</span>{% endif %}
+                <h3>{{ product.name }}</h3>
+                <p>{{ product.description }}</p>
+                <ul class="product-specs">
+                  {% for spec in product.specifications.all %}
+                  <li>{{ spec.label }}: {{ spec.value }}</li>
+                  {% empty %}
+                  {% if product.warranty %}<li>Warranty: {{ product.warranty }}</li>{% endif %}
+                  {% endfor %}
+                </ul>
+                <div class="product-meta"><span>${{ product.price }}</span><a class="button button-secondary" href="#contact">Order Now</a></div>
+              </article>
+              {% endfor %}
+            </div>
+          </section>
+          {% empty %}
+          <section class="product-section">
+            <div class="product-section-heading">
+              <h3>No products published yet</h3>
+              <p>Add products in Django admin and they will appear here automatically.</p>
+            </div>
+          </section>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="section plain-section" id="about">
+        <div class="section-heading">
+          <p class="eyebrow">About Us</p>
+          <h2>{{ settings_obj.about_heading|default:"SmartMe backed by one manageable system." }}</h2>
+          <p>{{ settings_obj.about_description|default:"The public website and key business sections now read from Django, so your admin dashboard controls what visitors see." }}</p>
+        </div>
+        <div class="review-grid" id="review-list">
+          {% for review in reviews %}
+          <article class="review-card"><p>"{{ review.comment }}"</p><strong>{{ review.reviewer_name }}</strong></article>
+          {% empty %}
+          <article class="review-card"><p>No reviews published yet.</p><strong>SmartMe</strong></article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="section plain-section" id="faqs">
+        <div class="section-heading">
+          <p class="eyebrow">FAQs</p>
+          <h2>{{ settings_obj.faqs_heading|default:"Questions managed from the admin dashboard." }}</h2>
+          <p>{{ settings_obj.faqs_description|default:"Add, edit, or remove FAQs from admin and they update here." }}</p>
+        </div>
+        <div class="faq-list">
+          {% for faq in faqs %}
+          <details>
+            <summary>{{ faq.question }}</summary>
+            <p>{{ faq.answer }}</p>
+          </details>
+          {% empty %}
+          <details open>
+            <summary>No FAQs published yet</summary>
+            <p>Add FAQs in the admin dashboard to show them here.</p>
+          </details>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="section policy-section" id="policies">
+        <div class="section-heading">
+          <p class="eyebrow">Policies</p>
+          <h2>{{ settings_obj.policies_heading|default:"Website policies controlled from admin." }}</h2>
+          <p>{{ settings_obj.policies_description|default:"Policies can be updated centrally from the dashboard." }}</p>
+        </div>
+        <div class="policy-grid">
+          {% for policy in policies %}
+          <article class="info-card">
+            <h3>{{ policy.title }}</h3>
+            <p>{{ policy.content }}</p>
+          </article>
+          {% empty %}
+          <article class="info-card"><h3>No policies yet</h3><p>Add policies in the admin dashboard to show them here.</p></article>
+          {% endfor %}
+        </div>
+      </section>
+
+      <section class="section plain-section" id="contact">
+        <div class="section-heading">
+          <p class="eyebrow">Contact</p>
+          <h2>{{ settings_obj.contact_heading|default:"Manage details in admin, display them here." }}</h2>
+          <p>{{ settings_obj.contact_description|default:"Contact information, social links, and other business details are managed from the admin dashboard." }}</p>
+        </div>
+        <div class="contact-layout">
+          <div class="contact-card">
+            <h3>Contact Details</h3>
+            <div class="contact-inline">
+              <p><strong>Phone:</strong> {{ settings_obj.phone }}</p>
+              <p><strong>Email:</strong> {{ settings_obj.email }}</p>
+              <p><strong>Address:</strong> {{ settings_obj.address }}</p>
+              <p><strong>Hours:</strong> {{ settings_obj.business_hours }}</p>
+            </div>
+            <div class="social-links">
+              {% if settings_obj.facebook_url %}<a href="{{ settings_obj.facebook_url }}" target="_blank" rel="noreferrer"><span>Facebook</span></a>{% endif %}
+              {% if settings_obj.instagram_url %}<a href="{{ settings_obj.instagram_url }}" target="_blank" rel="noreferrer"><span>Instagram</span></a>{% endif %}
+              {% if settings_obj.whatsapp_number %}<a href="https://wa.me/{{ settings_obj.whatsapp_number }}" target="_blank" rel="noreferrer"><span>WhatsApp</span></a>{% endif %}
+            </div>
+          </div>
+          <div class="form-card compact-form">
+            <h3>Admin Shortcuts</h3>
+            <p>Use the dashboard to manage products, services, specifications, prices, contact details, FAQs, and policies.</p>
+            <div class="hero-cta">
+              <a class="button button-primary" href="/admin/website/product/">Manage Products</a>
+              <a class="button button-secondary" href="/admin/website/service/">Manage Services</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const filterButtons = document.querySelectorAll('.django-filter');
+    const sections = document.querySelectorAll('.product-section');
+
+    filterButtons.forEach((button) => {
+      button.addEventListener('click', () => {
+        filterButtons.forEach((item) => item.classList.remove('active'));
+        button.classList.add('active');
+        const filter = button.dataset.filter;
+
+        sections.forEach((section) => {
+          section.hidden = filter !== 'all' && section.dataset.sectionCategory !== filter;
+        });
+      });
+    });
+  </script>
+</body>
+</html>

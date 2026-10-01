@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmartMe Admin Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 0; background: #f4f7f6; color: #15211d; }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 20px; }
+    .hero, .panel { background: white; border-radius: 20px; padding: 24px; box-shadow: 0 15px 40px rgba(0,0,0,0.06); }
+    .hero { margin-bottom: 24px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; }
+    .stat { padding: 18px; border-radius: 16px; background: #eef7f5; }
+    .actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 18px; }
+    .button { display: inline-block; padding: 12px 18px; border-radius: 999px; text-decoration: none; font-weight: 700; }
+    .primary { background: #0f766e; color: white; }
+    .secondary { background: #dff1ed; color: #0a4f4a; }
+    code { background: #f2f4f3; padding: 2px 6px; border-radius: 6px; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <p>SmartMe Control Center</p>
+      <h1>{{ settings_obj.company_name|default:"SmartMe Technology Ltd" }} Admin Dashboard</h1>
+      <p>Manage the content that appears on the public shop, review customer activity, and preview the customer view after you save changes.</p>
+      <div class="actions">
+        <a class="button primary" href="/admin/">Manage Website Content</a>
+        <a class="button secondary" href="http://localhost:8000/admin.html">Open Admin Hub</a>
+        <a class="button secondary" href="http://localhost:8000/">Preview Public Website</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Current Dashboard Summary</h2>
+      <div class="grid">
+        <div class="stat"><strong>{{ product_count }}</strong><p>Active products</p></div>
+        <div class="stat"><strong>{{ service_count }}</strong><p>Active services</p></div>
+        <div class="stat"><strong>{{ review_count }}</strong><p>Published reviews</p></div>
+        <div class="stat"><strong>{{ booking_count }}</strong><p>Bookings</p></div>
+        <div class="stat"><strong>{{ inquiry_count }}</strong><p>Inquiries</p></div>
+      </div>
+      <p>Next steps:</p>
+      <ol>
+        <li>Run <code>python manage.py migrate</code></li>
+        <li>Run <code>python manage.py createsuperuser</code></li>
+        <li>Optional: run <code>python manage.py seed_smartme_demo</code></li>
+        <li>Start the server with <code>python manage.py runserver</code></li>
+      </ol>
+    </section>
+  </div>
+</body>
+</html>

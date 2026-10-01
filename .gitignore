@@ -1,0 +1,15 @@
+# Local databases and SQLite journals can contain admin credentials and site data.
+*.sqlite3
+*.sqlite3-journal
+*.sqlite3-wal
+*.sqlite3-shm
+
+# Python-generated files
+__pycache__/
+*.py[cod]
+
+# Django-generated and local development files
+smartme_backend/staticfiles/
+.env
+.venv/
+venv/

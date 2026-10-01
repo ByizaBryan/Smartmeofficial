@@ -1,0 +1,247 @@
+:root {
+  --bg: #eef4f2;
+  --panel: rgba(255, 255, 255, 0.88);
+  --ink: #132220;
+  --muted: #5b6a65;
+  --brand: #0f766e;
+  --brand-deep: #0a4f4a;
+  --line: rgba(19, 34, 32, 0.12);
+  --shadow: 0 22px 55px rgba(12, 24, 33, 0.08);
+  --radius-lg: 28px;
+  --radius-md: 18px;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at top left, rgba(15, 118, 110, 0.16), transparent 30%),
+    linear-gradient(180deg, #f4efe5 0%, var(--bg) 100%);
+}
+input, select, textarea, button { font: inherit; }
+a { color: inherit; text-decoration: none; }
+
+.admin-shell {
+  width: min(1440px, calc(100% - 32px));
+  margin: 20px auto;
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 24px;
+}
+
+.admin-sidebar,
+.panel,
+.stat-card {
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.82);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: 18px;
+  align-self: start;
+  padding: 24px;
+  border-radius: 32px;
+  display: grid;
+  gap: 24px;
+}
+
+.sidebar-eyebrow {
+  margin: 0 0 8px;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
+  color: var(--brand);
+  font-weight: 700;
+}
+
+.admin-sidebar h1,
+.section-heading h2,
+.panel-head h3,
+.stat-card span {
+  font-family: "Space Grotesk", sans-serif;
+}
+
+.admin-sidebar h1,
+.section-heading h2 {
+  margin: 0 0 8px;
+}
+
+.admin-sidebar p,
+.section-heading p,
+.panel p,
+.list-item p,
+.status-text {
+  color: var(--muted);
+}
+
+.admin-nav {
+  display: grid;
+  gap: 10px;
+}
+
+.admin-nav a,
+.admin-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.admin-nav a {
+  justify-content: flex-start;
+  background: rgba(15, 118, 110, 0.08);
+}
+
+.admin-button.primary {
+  background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+  color: white;
+}
+
+.admin-button.secondary {
+  background: rgba(15, 118, 110, 0.08);
+  color: var(--brand-deep);
+}
+
+.sidebar-actions,
+.button-row {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.admin-main {
+  display: grid;
+  gap: 24px;
+}
+
+.admin-section {
+  display: grid;
+  gap: 18px;
+}
+
+.stats-grid,
+.admin-grid.two-col,
+.form-grid {
+  display: grid;
+  gap: 18px;
+}
+
+.stats-grid {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.stat-card {
+  padding: 22px;
+  border-radius: var(--radius-lg);
+}
+
+.stat-card span {
+  display: block;
+  font-size: 2.4rem;
+  margin-bottom: 8px;
+}
+
+.panel {
+  padding: 22px;
+  border-radius: var(--radius-lg);
+}
+
+.admin-grid.two-col {
+  grid-template-columns: 1.05fr 0.95fr;
+}
+
+.form-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.form-grid .full {
+  grid-column: 1 / -1;
+}
+
+label {
+  display: grid;
+  gap: 8px;
+  font-weight: 500;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.95);
+  outline-color: var(--brand);
+}
+
+.checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checkbox-row input {
+  width: auto;
+}
+
+.panel-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 12px;
+}
+
+.list-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.list-item {
+  padding: 16px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--line);
+  background: rgba(255,255,255,0.72);
+}
+
+.list-item strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.list-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 12px;
+}
+
+.status-text {
+  min-height: 1.2em;
+  margin: 0;
+  font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .admin-shell,
+  .admin-grid.two-col,
+  .stats-grid,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-sidebar {
+    position: static;
+  }
+}

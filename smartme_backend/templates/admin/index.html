@@ -1,0 +1,67 @@
+{% extends "admin/base_site.html" %}
+{% load i18n static %}
+
+{% block extrastyle %}
+{{ block.super }}
+<style>
+  .ops-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 22px 0 30px; }
+  .ops-card {
+    display: block;
+    padding: 18px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff, #eef7f5);
+    border: 1px solid #dbe8e5;
+    text-decoration: none;
+    color: #17312d;
+    box-shadow: 0 10px 24px rgba(16, 24, 40, 0.06);
+  }
+  .ops-card strong { display: block; font-size: 2rem; margin-bottom: 8px; color: #0f766e; }
+  .ops-card span { font-weight: 700; display: block; margin-bottom: 4px; }
+  .ops-quick {
+    margin: 24px 0;
+    padding: 20px;
+    border-radius: 18px;
+    background: #f7fbfa;
+    border: 1px solid #dbe8e5;
+  }
+  .ops-links { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 12px; }
+  .ops-links a {
+    display: inline-flex;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #0f766e;
+    color: white;
+    text-decoration: none;
+    font-weight: 700;
+  }
+</style>
+{% endblock %}
+
+{% block content %}
+<div id="content-main">
+  <div class="ops-quick">
+    <h1>SmartMe Operations Dashboard</h1>
+    <p>Manage products, accessories, services, bookings, inquiries, reviews, FAQs, policies, and site details from one place.</p>
+    <div class="ops-links">
+      <a href="http://localhost:8000/admin.html">Open Admin Hub</a>
+      <a href="http://localhost:8000/">Preview Public Site</a>
+      <a href="/admin/website/product/">Manage Products</a>
+      <a href="/admin/website/booking/">Manage Bookings</a>
+      <a href="/admin/website/inquiry/">Manage Inquiries</a>
+      <a href="/admin/website/sitesettings/">Manage Site Settings</a>
+    </div>
+  </div>
+
+  <div class="ops-grid">
+    {% for card in operations_cards %}
+      <a class="ops-card" href="{{ card.url }}">
+        <strong>{{ card.count }}</strong>
+        <span>{{ card.label }}</span>
+        <small>Open and manage</small>
+      </a>
+    {% endfor %}
+  </div>
+
+  {{ block.super }}
+</div>
+{% endblock %}

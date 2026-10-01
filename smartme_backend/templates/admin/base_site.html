@@ -1,0 +1,16 @@
+{% extends "admin/base.html" %}
+{% load i18n static %}
+
+{% block title %}{{ title }} | SmartMe Operations Dashboard{% endblock %}
+
+{% block branding %}
+<h1 id="site-name"><a href="{% url 'admin:index' %}">SmartMe Operations Dashboard</a></h1>
+{% endblock %}
+
+{% block nav-global %}
+<div style="display:flex; gap:12px; align-items:center;">
+  <a href="http://localhost:8000/admin.html" style="color:#d7f3ec; text-decoration:none; font-weight:700;">Admin Hub</a>
+  <a href="http://localhost:8000/" style="color:#d7f3ec; text-decoration:none; font-weight:700;">Public Website</a>
+  <a href="/dashboard/" style="color:#d7f3ec; text-decoration:none; font-weight:700;">Backend Summary</a>
+</div>
+{% endblock %}

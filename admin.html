@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0f766e">
+  <title>SmartMe Admin Hub</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root { color-scheme: light; --ink: #17312d; --muted: #61736f; --brand: #0f766e; --line: #dbe8e5; --wash: #eef7f5; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: #f5f8f7; font-family: "DM Sans", sans-serif; }
+    a { color: inherit; }
+    .wrap { width: min(1120px, calc(100% - 32px)); margin: 0 auto; padding: 36px 0 56px; }
+    .hero, .panel, .card { background: white; border: 1px solid var(--line); border-radius: 20px; box-shadow: 0 12px 32px #1028200b; }
+    .hero { padding: clamp(24px, 5vw, 44px); background: linear-gradient(120deg, #fff 35%, #eaf7f3); }
+    .eyebrow { margin: 0 0 10px; color: var(--brand); font-size: .78rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+    h1, h2, h3 { font-family: "Space Grotesk", sans-serif; }
+    h1 { margin: 0; font-size: clamp(2rem, 5vw, 3.3rem); }
+    .hero p:not(.eyebrow) { max-width: 720px; color: var(--muted); line-height: 1.65; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 17px; border-radius: 999px; background: var(--brand); color: white; font-weight: 700; text-decoration: none; }
+    .button.secondary { background: var(--wash); color: #0a4f4a; }
+    .section-head { margin: 32px 0 16px; }
+    .section-head h2 { margin: 0 0 6px; }
+    .section-head p, .card p { color: var(--muted); line-height: 1.55; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px; }
+    .card { padding: 20px; }
+    .card h3 { margin: 0 0 8px; }
+    .card p { min-height: 48px; margin: 0 0 16px; font-size: .94rem; }
+    .card a { color: var(--brand); font-weight: 700; text-decoration: none; }
+    .card a:hover, .button:hover { filter: brightness(.93); }
+    .note { margin-top: 24px; padding: 17px 20px; border-radius: 16px; background: #fff8e7; color: #654b13; line-height: 1.55; }
+    footer { margin-top: 28px; color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <section class="hero">
+      <p class="eyebrow">SmartMe Control</p>
+      <h1>Admin Hub</h1>
+      <p>Use this page to reach the shared operations dashboard. Management changes are saved by Django and shown on the public shop at port 8000.</p>
+      <div class="actions">
+        <a class="button" href="http://localhost:8001/">Open Admin Dashboard</a>
+        <a class="button secondary" href="http://localhost:8000/">View Public Shop</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="manage-title">
+      <div class="section-head">
+        <h2 id="manage-title">Manage SmartMe</h2>
+        <p>Sign in once on the operations dashboard. These links use its database-backed controls.</p>
+      </div>
+      <div class="grid">
+        <article class="card"><h3>Website content</h3><p>Update business details, homepage text, contact information, and social links.</p><a href="http://localhost:8001/admin/website/sitesettings/">Manage site settings &rarr;</a></article>
+        <article class="card"><h3>Products</h3><p>Add or edit products, prices, descriptions, images, and visibility on the public shop.</p><a href="http://localhost:8001/admin/website/product/">Manage products &rarr;</a></article>
+        <article class="card"><h3>Services</h3><p>Maintain repair services, prices, images, and which services appear on the website.</p><a href="http://localhost:8001/admin/website/service/">Manage services &rarr;</a></article>
+        <article class="card"><h3>Customer accounts</h3><p>Manage staff and administrator accounts used to access the operations dashboard.</p><a href="http://localhost:8001/admin/auth/user/">Manage accounts &rarr;</a></article>
+        <article class="card"><h3>Repair bookings</h3><p>Review customer booking requests and update their repair status.</p><a href="http://localhost:8001/admin/website/booking/">Manage bookings &rarr;</a></article>
+        <article class="card"><h3>Customer inquiries</h3><p>Review and track messages submitted through the website.</p><a href="http://localhost:8001/admin/website/inquiry/">Manage inquiries &rarr;</a></article>
+        <article class="card"><h3>Reviews</h3><p>Publish, edit, or remove customer reviews shown on the public website.</p><a href="http://localhost:8001/admin/website/review/">Manage reviews &rarr;</a></article>
+        <article class="card"><h3>FAQs and policies</h3><p>Update frequently asked questions and customer-facing policies.</p><a href="http://localhost:8001/admin/">Open content controls &rarr;</a></article>
+      </div>
+    </section>
+
+    <p class="note"><strong>Preview:</strong> After saving a change, open the public shop to see the current customer view. The public cart stays on port 8000. Customer account carts and inventory quantities are not yet implemented.</p>
+    <footer>SmartMe Technology Ltd &middot; <a href="http://localhost:8001/">Admin dashboard</a></footer>
+  </main>
+</body>
+</html>
